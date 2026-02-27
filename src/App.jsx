@@ -15,8 +15,8 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <PayrollPageii/>
-    // <Compensation/>
+    // <PayrollPageii/>
+    <Compensation/>
     // <PayrollPage/>
     // <HRISHome/>
     // <People/>
