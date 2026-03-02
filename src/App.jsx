@@ -8,6 +8,7 @@ import PayrollPage from './templates/PayrollTemaplte'
 import People from './templates/PeopleTemplate'
 import Compensation from './templates/Compensetion'
 import PayrollPageii from './templates/PayroleTemplate_ii'
+import PeopleWithSalaryEdit from './templates/PeopleWithSalaryEdit'
 
 
 
@@ -15,8 +16,9 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
+    <PeopleWithSalaryEdit/>
     // <PayrollPageii/>
-    <Compensation/>
+    // <Compensation/>
     // <PayrollPage/>
     // <HRISHome/>
     // <People/>
