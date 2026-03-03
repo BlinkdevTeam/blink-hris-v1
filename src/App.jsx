@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate, } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 import {
   EMPLOYEES,
@@ -106,6 +108,7 @@ export default function App() {
   };
 
   return (
+     <Provider store={store}>         {/* <-- NEW WRAPPER */}
     <BrowserRouter>
       <Layout>
         <Routes>
@@ -127,5 +130,7 @@ export default function App() {
         </Routes>
       </Layout>
     </BrowserRouter>
+    </Provider>
   );
 }
+
