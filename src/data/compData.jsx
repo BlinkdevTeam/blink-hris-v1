@@ -21,9 +21,9 @@ export const EMPLOYEES = [
     tax: 28,
     benefits: 1280,
     status: "Active",
-    empType: "Full-time",     // From second dataset
+    empType: "Regular",
     taxExempt: false,
-    deductOverrides: { sss:true, philhealth:true, pagibig:true },
+    deductOverrides: { sss: true, philhealth: true, pagibig: true },
 
     location: "New York",
     joined: "Jan 12, 2021",
@@ -33,7 +33,7 @@ export const EMPLOYEES = [
     schedule: "Mon–Fri, 9am–5pm",
     benefitsTier: "Premium",
     gender: "Female",
-    dob: "Mar 14, 1990"
+    dob: "Mar 14, 1990",
   },
 
   {
@@ -48,9 +48,9 @@ export const EMPLOYEES = [
     tax: 22,
     benefits: 960,
     status: "Active",
-    empType: "Full-time",
+    empType: "Regular",
     taxExempt: false,
-    deductOverrides: { sss:true, philhealth:true, pagibig:true },
+    deductOverrides: { sss: true, philhealth: true, pagibig: true },
 
     location: "Chicago",
     joined: "Mar 5, 2022",
@@ -60,7 +60,7 @@ export const EMPLOYEES = [
     schedule: "Mon–Fri, Flexible",
     benefitsTier: "Standard",
     gender: "Male",
-    dob: "Jul 22, 1993"
+    dob: "Jul 22, 1993",
   },
 
   {
@@ -75,9 +75,9 @@ export const EMPLOYEES = [
     tax: 26,
     benefits: 1280,
     status: "Active",
-    empType: "Full-time",
+    empType: "Regular",
     taxExempt: false,
-    deductOverrides: { sss:true, philhealth:true, pagibig:true },
+    deductOverrides: { sss: true, philhealth: true, pagibig: true },
 
     location: "Remote",
     joined: "Jul 19, 2023",
@@ -87,7 +87,7 @@ export const EMPLOYEES = [
     schedule: "Mon–Fri, Flexible",
     benefitsTier: "Premium",
     gender: "Female",
-    dob: "Nov 5, 1991"
+    dob: "Nov 5, 1991",
   },
 
   {
@@ -102,9 +102,9 @@ export const EMPLOYEES = [
     tax: 27,
     benefits: 960,
     status: "Active",
-    empType: "Full-time",
+    empType: "Regular",
     taxExempt: false,
-    deductOverrides: { sss:true, philhealth:true, pagibig:true },
+    deductOverrides: { sss: true, philhealth: true, pagibig: true },
 
     location: "Austin",
     joined: "Nov 1, 2020",
@@ -114,7 +114,7 @@ export const EMPLOYEES = [
     schedule: "Mon–Fri, 9am–5pm",
     benefitsTier: "Standard",
     gender: "Male",
-    dob: "Apr 18, 1988"
+    dob: "Apr 18, 1988",
   },
 
   {
@@ -129,9 +129,9 @@ export const EMPLOYEES = [
     tax: 30,
     benefits: 1280,
     status: "Active",
-    empType: "Full-time",
+    empType: "Regular",
     taxExempt: false,
-    deductOverrides: { sss:true, philhealth:true, pagibig:true },
+    deductOverrides: { sss: true, philhealth: true, pagibig: true },
 
     location: "New York",
     joined: "Feb 28, 2019",
@@ -141,7 +141,7 @@ export const EMPLOYEES = [
     schedule: "4-day week",
     benefitsTier: "Premium",
     gender: "Female",
-    dob: "Sep 30, 1987"
+    dob: "Sep 30, 1987",
   },
 
   {
@@ -156,9 +156,9 @@ export const EMPLOYEES = [
     tax: 35,
     benefits: 1280,
     status: "Active",
-    empType: "Full-time",
+    empType: "Regular",
     taxExempt: false,
-    deductOverrides: { sss:true, philhealth:true, pagibig:true },
+    deductOverrides: { sss: true, philhealth: true, pagibig: true },
 
     location: "New York",
     joined: "Jun 14, 2018",
@@ -168,7 +168,7 @@ export const EMPLOYEES = [
     schedule: "Mon–Fri, Flexible",
     benefitsTier: "Premium",
     gender: "Male",
-    dob: "Jan 2, 1982"
+    dob: "Jan 2, 1982",
   },
 
   {
@@ -183,9 +183,9 @@ export const EMPLOYEES = [
     tax: 32,
     benefits: 1280,
     status: "Active",
-    empType: "Full-time",
+    empType: "Regular",
     taxExempt: false,
-    deductOverrides: { sss:true, philhealth:true, pagibig:true },
+    deductOverrides: { sss: true, philhealth: true, pagibig: true },
 
     location: "Chicago",
     joined: "Sep 3, 2020",
@@ -195,7 +195,7 @@ export const EMPLOYEES = [
     schedule: "Mon–Fri, 9am–5pm",
     benefitsTier: "Premium",
     gender: "Female",
-    dob: "Jun 15, 1984"
+    dob: "Jun 15, 1984",
   },
 
   {
@@ -210,9 +210,9 @@ export const EMPLOYEES = [
     tax: 24,
     benefits: 960,
     status: "Active",
-    empType: "Full-time", // overrides Contractual since second dataset is richer
+    empType: "Contractual", // restored from first dataset
     taxExempt: false,
-    deductOverrides: { sss:false, philhealth:false, pagibig:false },
+    deductOverrides: { sss: false, philhealth: false, pagibig: false },
 
     location: "Remote",
     joined: "Apr 11, 2022",
@@ -222,7 +222,7 @@ export const EMPLOYEES = [
     schedule: "Mon–Fri, Flexible",
     benefitsTier: "Standard",
     gender: "Male",
-    dob: "Feb 27, 1994"
+    dob: "Feb 27, 1994",
   },
 
   {
@@ -237,9 +237,9 @@ export const EMPLOYEES = [
     tax: 22,
     benefits: 960,
     status: "On Leave",
-    empType: "Full-time",
+    empType: "Regular",
     taxExempt: false,
-    deductOverrides: { sss:true, philhealth:true, pagibig:true },
+    deductOverrides: { sss: true, philhealth: true, pagibig: true },
 
     location: "Austin",
     joined: "Oct 22, 2021",
@@ -249,7 +249,7 @@ export const EMPLOYEES = [
     schedule: "Mon–Fri, 9am–5pm",
     benefitsTier: "Standard",
     gender: "Female",
-    dob: "Aug 8, 1995"
+    dob: "Aug 8, 1995",
   },
 
   {
@@ -264,9 +264,9 @@ export const EMPLOYEES = [
     tax: 0,
     benefits: 0,
     status: "Active",
-    empType: "Full-time",
+    empType: "Regular",
     taxExempt: "Minimum Wage",
-    deductOverrides: { sss:true, philhealth:true, pagibig:true },
+    deductOverrides: { sss: true, philhealth: true, pagibig: true },
 
     location: "New York",
     joined: "Jan 7, 2023",
@@ -276,7 +276,7 @@ export const EMPLOYEES = [
     schedule: "Mon–Fri, 9am–5pm",
     benefitsTier: "Standard",
     gender: "Male",
-    dob: "Dec 3, 1997"
+    dob: "Dec 3, 1997",
   },
 
   {
@@ -291,9 +291,9 @@ export const EMPLOYEES = [
     tax: 26,
     benefits: 1280,
     status: "Active",
-    empType: "Full-time",
+    empType: "Part-time", // restored from first dataset
     taxExempt: false,
-    deductOverrides: { sss:true, philhealth:true, pagibig:false },
+    deductOverrides: { sss: true, philhealth: true, pagibig: false },
 
     location: "Remote",
     joined: "Mar 30, 2022",
@@ -303,7 +303,7 @@ export const EMPLOYEES = [
     schedule: "Mon–Fri, Flexible",
     benefitsTier: "Premium",
     gender: "Female",
-    dob: "May 11, 1992"
+    dob: "May 11, 1992",
   },
 
   {
@@ -318,9 +318,9 @@ export const EMPLOYEES = [
     tax: 23,
     benefits: 960,
     status: "Active",
-    empType: "Full-time",
+    empType: "Custom", // restored from first dataset
     taxExempt: false,
-    deductOverrides: { sss:true, philhealth:false, pagibig:true },
+    deductOverrides: { sss: true, philhealth: false, pagibig: true },
 
     location: "Chicago",
     joined: "Aug 15, 2021",
@@ -330,10 +330,138 @@ export const EMPLOYEES = [
     schedule: "Mon–Fri, Flexible",
     benefitsTier: "Standard",
     gender: "Male",
-    dob: "Oct 19, 1993"
-  }
+    dob: "Oct 19, 1993",
+  },
 ];
 
+export const DEFAULT_SETTINGS = {
+  sss:       { enabled:true,  rate:4.5,  cap:1350,  label:"SSS / Social Security",   note:"Employee share. Employer contributes separately." },
+  philhealth:{ enabled:true,  rate:2.0,  cap:3200,  label:"PhilHealth / Medical",     note:"Employee share (2% of basic salary, split equally)." },
+  pagibig:   { enabled:true,  rate:2.0,  cap:100,   label:"Pag-IBIG / Housing Fund",  note:"Capped at \u20b1100/month employee share." },
+  ot: {
+    regular: { rate:1.25, label:"Regular OT (>8h/day)" },
+    restDay: { rate:1.30, label:"Rest Day OT" },
+    holiday: { rate:2.00, label:"Special Holiday OT" },
+    legal:   { rate:2.60, label:"Legal Holiday OT" },
+  },
+  ut: { deductRate:1.00, graceMins:15 },
+  tax: {
+    method:"flat",
+    flatNote:"Each employee withholding rate is set individually in their compensation record.",
+    brackets:[
+      { from:0,      to:20833,  rate:0,  fixed:0      },
+      { from:20834,  to:33332,  rate:20, fixed:0      },
+      { from:33333,  to:66666,  rate:25, fixed:2500   },
+      { from:66667,  to:166666, rate:30, fixed:10833  },
+      { from:166667, to:666666, rate:32, fixed:40833  },
+      { from:666667, to:null,   rate:35, fixed:200833 },
+    ],
+  },
+  schedule: { cutoff1:15, cutoff2:30, payDelay:5, currency:"USD" },
+  benefitCategories:[
+    { id:1, name:"Health Insurance", defaultAmt:800, enabled:true  },
+    { id:2, name:"Dental & Vision",  defaultAmt:240, enabled:true  },
+    { id:3, name:"401(k) / Pension", defaultAmt:240, enabled:true  },
+    { id:4, name:"Life Insurance",   defaultAmt:60,  enabled:false },
+    { id:5, name:"Commuter Benefit", defaultAmt:50,  enabled:false },
+  ],
+};
+
+export function calcNet(emp, cfg) { return calcDeductions(emp, cfg).net; }
+
+export function fmt(n) { return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+export function gross(emp) { return emp.salaryNumeric / periodsPerYear(emp.payFreq); }
+
+export function calcDeductions(emp, cfg) {
+  const g       = gross(emp);
+  const periods = periodsPerYear(emp.payFreq);
+  const isContractual = emp.empType === "Contractual";
+  const isPartTime    = emp.empType === "Part-time";
+  const isCustom      = emp.empType === "Custom";
+  const ov            = emp.deductOverrides || {};
+
+  // Tax: exempt employees pay nothing regardless of their tax rate
+  const taxAmt = emp.taxExempt ? 0 : g * (emp.tax / 100);
+
+  // Statutory: Contractual = none, Part-time = prorated at 0.5, Custom = per override, Regular = full
+  function statutoryAmt(key) {
+    const globalOn = cfg[key]?.enabled;
+    if (!globalOn) return 0;
+    if (isContractual) return 0;
+    if (isCustom && !ov[key]) return 0;
+    const raw = g * (cfg[key].rate / 100);
+    const cap = cfg[key].cap / periods;
+    const amt = Math.min(raw, cap);
+    return isPartTime ? amt * 0.5 : amt;
+  }
+
+  const sssAmt  = statutoryAmt("sss");
+  const philAmt = statutoryAmt("philhealth");
+  const pagAmt  = statutoryAmt("pagibig");
+  // Benefits: Contractual gets none, others full
+  const benAmt  = isContractual ? 0 : emp.benefits / periods;
+
+  return { g, taxAmt, sssAmt, philAmt, pagAmt, benAmt,
+           net: g - taxAmt - sssAmt - philAmt - pagAmt - benAmt };
+}
+
+export const PAYROLL_RUNS = [
+  {
+    id: "PR-2026-04",
+    period: "Feb 1 – Feb 15, 2026",
+    payDate: "Feb 28, 2026",
+    status: "Scheduled",
+    total: 142830,
+    headcount: 12,
+    type: "Bi-weekly + Monthly",
+  },
+  {
+    id: "PR-2026-03",
+    period: "Jan 16 – Jan 31, 2026",
+    payDate: "Feb 14, 2026",
+    status: "Processed",
+    total: 138450,
+    headcount: 12,
+    type: "Bi-weekly",
+  },
+  {
+    id: "PR-2026-02",
+    period: "Jan 1 – Jan 15, 2026",
+    payDate: "Jan 31, 2026",
+    status: "Processed",
+    total: 141200,
+    headcount: 12,
+    type: "Bi-weekly + Monthly",
+  },
+  {
+    id: "PR-2026-01",
+    period: "Dec 16 – Dec 31, 2025",
+    payDate: "Jan 14, 2026",
+    status: "Processed",
+    total: 139800,
+    headcount: 12,
+    type: "Bi-weekly",
+  },
+  {
+    id: "PR-2025-26",
+    period: "Dec 1 – Dec 15, 2025",
+    payDate: "Dec 31, 2025",
+    status: "Processed",
+    total: 144500,
+    headcount: 12,
+    type: "Bi-weekly + Monthly",
+  },
+  {
+    id: "PR-2025-25",
+    period: "Nov 16 – Nov 30, 2025",
+    payDate: "Dec 14, 2025",
+    status: "Processed",
+    total: 137900,
+    headcount: 11,
+    type: "Bi-weekly",
+  },
+];
 
 // ── COMPENSATION PACKAGE SETS ─────────────────────────────────────────────────
 
