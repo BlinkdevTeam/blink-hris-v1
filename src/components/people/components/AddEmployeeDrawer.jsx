@@ -1,3 +1,8 @@
+import { useState } from "react";
+import {
+  IC, IS, Field 
+} from "../../../data/compData";
+
 // ── ADD EMPLOYEE DRAWER ───────────────────────────────────────────────────────
 export default function AddEmployeeDrawer({ onClose, onSave }) {
   const [form, setForm] = useState({
