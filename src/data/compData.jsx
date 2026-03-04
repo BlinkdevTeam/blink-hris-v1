@@ -791,3 +791,185 @@ export const OT_STATUS_STYLE = {
   Pending:  { bg:"#1f1a0f", color:"#f0c85a" },
   Flagged:  { bg:"#1f0f0f", color:"#f05a5a" },
 };
+
+export function PriorityBadge({ priority }) {
+  const s = { High:{ bg:"#1f0f0f",color:"#f05a5a" }, Medium:{ bg:"#1f1a0f",color:"#f0c85a" }, Low:{ bg:"#0f1f0f",color:"#5af07a" } }[priority] || {};
+  return <span className="text-xs px-2 py-0.5 rounded-full" style={{ fontFamily:"system-ui,sans-serif",...s }}>{priority}</span>;
+}
+
+export function CandidateAvatar({ name, size=32 }) {
+  const idx = name.charCodeAt(0) % AV_COLORS.length;
+  const bg  = AV_COLORS[idx];
+  const fg  = "#000";
+  return (
+    <div className="rounded-full flex items-center justify-center font-bold flex-shrink-0"
+      style={{ width:size, height:size, backgroundColor:bg, color:fg, fontFamily:"system-ui,sans-serif", fontSize:size<28?9:size<40?11:14 }}>
+      {initials(name)}
+    </div>
+  );
+}
+
+export const AV_COLORS = ["#e8e0d5", "#c8bfb0", "#a8a090", "#888070", "#686050", "#484030", "#d5e0e8", "#b0c0cf", "#8090a8", "#506080"];
+
+export function initials(name) { return name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase(); }
+
+export function StatusBadge({ status }) {
+  const s = {
+    Open:{ bg:"#0f1f0f",color:"#5af07a" }, Closed:{ bg:"#1a1a1a",color:"#555" },
+    Active:{ bg:"#0a1a2a",color:"#5a9af0" }, Hired:{ bg:"#0f1f0f",color:"#5af07a" },
+    Rejected:{ bg:"#1f0f0f",color:"#f05a5a" }, Draft:{ bg:"#1f1a0f",color:"#f0c85a" },
+    Accepted:{ bg:"#0f1f0f",color:"#5af07a" }, Declined:{ bg:"#1f0f0f",color:"#f05a5a" },
+    Scheduled:{ bg:"#0a1a2a",color:"#5a9af0" }, Completed:{ bg:"#0f1f0f",color:"#5af07a" },
+    Cancelled:{ bg:"#1f0f0f",color:"#f05a5a" },
+  }[status] || { bg:"#111",color:"#888" };
+  return <span className="text-xs px-2 py-0.5 rounded-full whitespace-nowrap" style={{ fontFamily:"system-ui,sans-serif",...s }}>{status}</span>;
+}
+
+export const EMP_TYPES = ["Full-time", "Part-time", "Contract", "Internship"];
+
+export function Stars({ rating, onChange }) {
+  return (
+    <div className="flex gap-0.5">
+      {[1,2,3,4,5].map(n => (
+        <button key={n} onClick={() => onChange?.(n)} style={{ color: n<=rating?"#f0c85a":"#333", fontSize:12, lineHeight:1 }}>★</button>
+      ))}
+    </div>
+  );
+}
+
+export function stageForApplicant(applicant, jobs) {
+  const job = jobs.find(j => j.id === applicant.jobId);
+  if (!job) return null;
+  return job.stages.find(s => s.id === applicant.stageId) || job.stages[0];
+}
+
+export const INTERVIEW_TYPES = ["Phone Screen", "Video Call", "In-Person", "Panel", "Technical", "Final"];
+
+// ── DEFAULT GLOBAL PIPELINE STAGES ───────────────────────────────────────────
+export const DEFAULT_STAGES_SEED = [
+  { id:"s1", label:"Applied",     color:"#555",    icon:"📥" },
+  { id:"s2", label:"Screening",   color:"#5a9af0", icon:"🔍" },
+  { id:"s3", label:"Interview",   color:"#f0c85a", icon:"🗣" },
+  { id:"s4", label:"Assessment",  color:"#c07af0", icon:"📝" },
+  { id:"s5", label:"Offer",       color:"#5af07a", icon:"📄" },
+  { id:"s6", label:"Hired",       color:"#5af07a", icon:"✅" },
+];
+
+// ── SEED DATA ─────────────────────────────────────────────────────────────────
+export const JOB_OPENINGS_SEED = [
+  {
+    id:"j1", title:"Senior Frontend Engineer", dept:"Engineering", type:"Full-time",
+    location:"Remote", salary:"₱120,000 – ₱150,000", headcount:2, filled:0,
+    postedOn:"Feb 15, 2026", deadline:"Mar 31, 2026", status:"Open", priority:"High",
+    description:"We are looking for a Senior Frontend Engineer to join our Engineering team. You will be responsible for building and maintaining high-quality web applications.",
+    requirements:"5+ years React experience, TypeScript, strong UI/UX sensibility",
+    stages:[
+      { id:"s1", label:"Applied",           color:"#555",    icon:"📥" },
+      { id:"s2", label:"Technical Screen",  color:"#5a9af0", icon:"💻" },
+      { id:"s3", label:"HR Interview",      color:"#f0c85a", icon:"🗣" },
+      { id:"s4", label:"Technical Interview",color:"#c07af0",icon:"🔬" },
+      { id:"s5", label:"Offer",             color:"#5af07a", icon:"📄" },
+      { id:"s6", label:"Hired",             color:"#5af07a", icon:"✅" },
+    ],
+  },
+  {
+    id:"j2", title:"Sales Account Executive", dept:"Sales", type:"Full-time",
+    location:"On-site · Manila", salary:"₱60,000 – ₱80,000 + commission", headcount:3, filled:1,
+    postedOn:"Feb 20, 2026", deadline:"Mar 20, 2026", status:"Open", priority:"High",
+    description:"Drive revenue growth by managing the full sales cycle from prospecting to close.",
+    requirements:"3+ years B2B sales, strong communication, CRM experience",
+    stages:[
+      { id:"s1", label:"Applied",      color:"#555",    icon:"📥" },
+      { id:"s2", label:"HR Interview", color:"#5a9af0", icon:"🗣" },
+      { id:"s3", label:"Sales Demo",   color:"#f0c85a", icon:"🎯" },
+      { id:"s4", label:"Offer",        color:"#5af07a", icon:"📄" },
+      { id:"s5", label:"Hired",        color:"#5af07a", icon:"✅" },
+    ],
+  },
+  {
+    id:"j3", title:"UX Designer", dept:"Design", type:"Full-time",
+    location:"Hybrid · Manila", salary:"₱70,000 – ₱90,000", headcount:1, filled:0,
+    postedOn:"Feb 28, 2026", deadline:"Apr 15, 2026", status:"Open", priority:"Medium",
+    description:"Design intuitive and beautiful user experiences across our product suite.",
+    requirements:"3+ years UX/UI, Figma proficiency, portfolio required",
+    stages:[
+      { id:"s1", label:"Applied",          color:"#555",    icon:"📥" },
+      { id:"s2", label:"Portfolio Review", color:"#5a9af0", icon:"🖼" },
+      { id:"s3", label:"HR Interview",     color:"#f0c85a", icon:"🗣" },
+      { id:"s4", label:"Design Test",      color:"#c07af0", icon:"✏" },
+      { id:"s5", label:"Offer",            color:"#5af07a", icon:"📄" },
+      { id:"s6", label:"Hired",            color:"#5af07a", icon:"✅" },
+    ],
+  },
+  {
+    id:"j4", title:"Data Analyst", dept:"Operations", type:"Full-time",
+    location:"Remote", salary:"₱65,000 – ₱85,000", headcount:1, filled:0,
+    postedOn:"Mar 1, 2026", deadline:"Apr 1, 2026", status:"Open", priority:"Medium",
+    description:"Turn complex data into actionable insights that drive business decisions.",
+    requirements:"SQL, Python, BI tools (Tableau/PowerBI), statistics background",
+    stages:[
+      { id:"s1", label:"Applied",        color:"#555",    icon:"📥" },
+      { id:"s2", label:"Screening",      color:"#5a9af0", icon:"🔍" },
+      { id:"s3", label:"HR Interview",   color:"#f0c85a", icon:"🗣" },
+      { id:"s4", label:"Case Study",     color:"#c07af0", icon:"📊" },
+      { id:"s5", label:"Offer",          color:"#5af07a", icon:"📄" },
+      { id:"s6", label:"Hired",          color:"#5af07a", icon:"✅" },
+    ],
+  },
+  {
+    id:"j5", title:"Marketing Manager", dept:"Marketing", type:"Full-time",
+    location:"On-site · Manila", salary:"₱80,000 – ₱100,000", headcount:1, filled:1,
+    postedOn:"Jan 10, 2026", deadline:"Feb 28, 2026", status:"Closed", priority:"Low",
+    description:"Lead our marketing efforts across digital and traditional channels.",
+    requirements:"5+ years marketing, team management, digital marketing expertise",
+    stages: DEFAULT_STAGES_SEED,
+  },
+];
+
+export const APPLICANTS_SEED = [
+  { id:"a1",  jobId:"j1", name:"Rafael Santos",    email:"rafael.s@email.com",    phone:"+63 917 123 4567", appliedOn:"Feb 16, 2026", source:"LinkedIn",  stageId:"s3", status:"Active",   rating:4, notes:"Strong React background, great portfolio" },
+  { id:"a2",  jobId:"j1", name:"Camille Reyes",    email:"cam.reyes@email.com",   phone:"+63 918 234 5678", appliedOn:"Feb 17, 2026", source:"Referral",  stageId:"s4", status:"Active",   rating:5, notes:"Exceptional candidate, highly recommended by Devon" },
+  { id:"a3",  jobId:"j1", name:"Miguel Torres",    email:"m.torres@email.com",    phone:"+63 919 345 6789", appliedOn:"Feb 20, 2026", source:"JobStreet", stageId:"s2", status:"Active",   rating:3, notes:"Decent skills, needs assessment" },
+  { id:"a4",  jobId:"j1", name:"Bea Villanueva",   email:"bea.v@email.com",       phone:"+63 920 456 7890", appliedOn:"Feb 22, 2026", source:"Indeed",    stageId:"s1", status:"Active",   rating:0, notes:"" },
+  { id:"a5",  jobId:"j2", name:"Carlo Domingo",    email:"carlo.d@email.com",     phone:"+63 921 567 8901", appliedOn:"Feb 21, 2026", source:"LinkedIn",  stageId:"s4", status:"Active",   rating:4, notes:"Hit all targets in previous role, great energy" },
+  { id:"a6",  jobId:"j2", name:"Anna Lim",         email:"anna.lim@email.com",    phone:"+63 922 678 9012", appliedOn:"Feb 22, 2026", source:"Referral",  stageId:"s3", status:"Active",   rating:3, notes:"Good communication, sales demo pending" },
+  { id:"a7",  jobId:"j2", name:"Rico Mercado",     email:"rico.m@email.com",      phone:"+63 923 789 0123", appliedOn:"Feb 24, 2026", source:"JobStreet", stageId:"s2", status:"Active",   rating:2, notes:"Junior profile, might be a stretch" },
+  { id:"a8",  jobId:"j2", name:"Diane Cruz",       email:"diane.c@email.com",     phone:"+63 924 890 1234", appliedOn:"Feb 26, 2026", source:"Indeed",    stageId:"s5", status:"Hired",    rating:5, notes:"Outstanding — offer accepted, starts Mar 15" },
+  { id:"a9",  jobId:"j3", name:"Marco Evangelista",email:"marco.e@email.com",     phone:"+63 925 901 2345", appliedOn:"Mar 1, 2026",  source:"Behance",   stageId:"s3", status:"Active",   rating:4, notes:"Beautiful portfolio, interview pending" },
+  { id:"a10", jobId:"j3", name:"Tricia Santos",    email:"tricia.s@email.com",    phone:"+63 926 012 3456", appliedOn:"Mar 2, 2026",  source:"LinkedIn",  stageId:"s2", status:"Active",   rating:3, notes:"Good Figma skills, needs portfolio review" },
+  { id:"a11", jobId:"j4", name:"Jerome Aquino",    email:"jerome.a@email.com",    phone:"+63 927 123 4568", appliedOn:"Mar 2, 2026",  source:"LinkedIn",  stageId:"s2", status:"Active",   rating:3, notes:"SQL strong, Python moderate" },
+  { id:"a12", jobId:"j1", name:"Lea Castillo",     email:"lea.c@email.com",       phone:"+63 928 234 5679", appliedOn:"Feb 25, 2026", source:"Referral",  stageId:"s1", status:"Rejected", rating:1, notes:"Not enough experience for senior level" },
+];
+
+export const INTERVIEWS_SEED = [
+  { id:"i1", applicantId:"a2", jobId:"j1", type:"Technical Interview", date:"Mar 5, 2026",  time:"2:00 PM", interviewer:"Devon Park",    link:"https://meet.google.com/abc-defg", notes:"Focus on system design and React architecture", feedback:"", status:"Scheduled" },
+  { id:"i2", applicantId:"a1", jobId:"j1", type:"HR Interview",        date:"Mar 4, 2026",  time:"10:00 AM",interviewer:"Chris Mendez",  link:"https://zoom.us/j/123456",          notes:"Culture fit, salary expectations", feedback:"Strong candidate, very articulate", status:"Completed" },
+  { id:"i3", applicantId:"a5", jobId:"j2", type:"Sales Demo",          date:"Mar 6, 2026",  time:"3:00 PM", interviewer:"Rita Vance",    link:"",                                  notes:"In-person at office, ask them to present a mock pitch", feedback:"", status:"Scheduled" },
+  { id:"i4", applicantId:"a9", jobId:"j3", type:"HR Interview",        date:"Mar 7, 2026",  time:"11:00 AM",interviewer:"Chris Mendez",  link:"https://meet.google.com/xyz-abcd",  notes:"Discuss portfolio, design process", feedback:"", status:"Scheduled" },
+  { id:"i5", applicantId:"a6", jobId:"j2", type:"HR Interview",        date:"Mar 3, 2026",  time:"1:00 PM", interviewer:"Chris Mendez",  link:"https://zoom.us/j/789012",          notes:"General HR screening", feedback:"Decent, passed to sales demo stage", status:"Completed" },
+];
+
+export const OFFERS_SEED = [
+  { id:"of1", applicantId:"a8", jobId:"j2", salary:"₱72,000", startDate:"Mar 15, 2026", expiresOn:"Mar 8, 2026",  sentOn:"Mar 3, 2026",  status:"Accepted", notes:"Negotiated ₱72k from initial ₱68k offer" },
+  { id:"of2", applicantId:"a2", jobId:"j1", salary:"₱135,000",startDate:"Apr 1, 2026",  expiresOn:"Mar 12, 2026", sentOn:null,           status:"Draft",    notes:"Pending technical interview result" },
+];
+
+export const ONBOARDING_TEMPLATES = [
+  { id:"ot1", label:"Send welcome email",          category:"Pre-start",  daysRelative:-3 },
+  { id:"ot2", label:"Prepare laptop & equipment",  category:"Pre-start",  daysRelative:-2 },
+  { id:"ot3", label:"Set up accounts (email, Slack, HR system)", category:"Pre-start", daysRelative:-1 },
+  { id:"ot4", label:"Orientation & company overview", category:"Day 1",  daysRelative:0  },
+  { id:"ot5", label:"Meet the team",               category:"Day 1",  daysRelative:0  },
+  { id:"ot6", label:"HR documentation (contracts, ID)", category:"Day 1", daysRelative:0 },
+  { id:"ot7", label:"Department briefing",         category:"Week 1", daysRelative:3  },
+  { id:"ot8", label:"Assign buddy / mentor",       category:"Week 1", daysRelative:2  },
+  { id:"ot9", label:"30-day check-in scheduled",   category:"Month 1",daysRelative:30 },
+];
+
+export const ONBOARDING_SEED = [
+  {
+    id:"ob1", applicantId:"a8", jobId:"j2", startDate:"Mar 15, 2026",
+    tasks: ONBOARDING_TEMPLATES.map(t => ({ ...t, done:t.daysRelative < 0 })),
+  },
+];
+
