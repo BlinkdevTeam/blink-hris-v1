@@ -11,11 +11,8 @@ import TaxDeductionsSection from "./components/TaxDeductionsSection";
 import {
   DEFAULT_SETTINGS,
   EMPLOYEES,
-  gross,
   fmt,
   periodsPerYear,
-  calcDeductions,
-  Avatar,
   PAYROLL_RUNS
 } from "../../data/compData";
 
