@@ -19,6 +19,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import People from "./components/people/People";
 import EmployeeProfile from "./components/people/EmployeeProfile";
 import Payroll from "./components/payroll/Payroll";
+import TimeAndLeave from "./components/time-leave/TimeInLeave";
 
 // ── Layout ────────────────────────────────────────────────────────────────────
 // Single wrapper rendered once. Every page gets TopNav automatically.
@@ -120,7 +121,9 @@ export default function App() {
           <Route path="/people/:id"      element={<EmployeeProfile {...employeeProps} {...compPackageProps} />} />
           <Route path="/people/:id/:tab" element={<EmployeeProfile {...employeeProps} {...compPackageProps} />} />
 
-          <Route path="/payroll"         element={<Payroll {...payrollProps} />} />
+          <Route path="/payroll" element={<Payroll {...payrollProps} />} />
+          <Route path="/time-leave"      element={<TimeAndLeave employees={employees} />} />
+          
           {/* <Route path="/time-leave"      element={<TimeAndLeave employees={employees} />} />
           <Route path="/recruitment"     element={<RecruitmentPage />} />
           <Route path="/reports"         element={<ReportsPage employees={employees} {...compPackageProps} />} /> */}

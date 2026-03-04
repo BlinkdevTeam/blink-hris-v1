@@ -463,6 +463,159 @@ export const PAYROLL_RUNS = [
   },
 ];
 
+// Attendance records — today's status per employee
+export const ATTENDANCE_TODAY = [
+  { empId:1,  status:"Present",  timeIn:"8:52 AM",  breakOut:"12:05 PM", breakIn:"12:58 PM", timeOut:null,       hours:null, breakFlag:null },
+  { empId:2,  status:"Remote",   timeIn:"9:10 AM",  breakOut:"12:00 PM", breakIn:"1:00 PM",  timeOut:null,       hours:null, breakFlag:null },
+  { empId:3,  status:"Present",  timeIn:"9:01 AM",  breakOut:"12:10 PM", breakIn:"1:25 PM",  timeOut:null,       hours:null, breakFlag:"exceeded" },
+  { empId:4,  status:"Late",     timeIn:"10:23 AM", breakOut:null,       breakIn:null,        timeOut:null,       hours:null, breakFlag:null },
+  { empId:5,  status:"Present",  timeIn:"8:45 AM",  breakOut:"12:00 PM", breakIn:"12:55 PM", timeOut:null,       hours:null, breakFlag:null },
+  { empId:6,  status:"Present",  timeIn:"8:30 AM",  breakOut:"11:45 AM", breakIn:"12:30 PM", timeOut:null,       hours:null, breakFlag:"early" },
+  { empId:7,  status:"Remote",   timeIn:"9:00 AM",  breakOut:"12:00 PM", breakIn:"1:00 PM",  timeOut:null,       hours:null, breakFlag:null },
+  { empId:8,  status:"Remote",   timeIn:"9:30 AM",  breakOut:null,       breakIn:null,        timeOut:null,       hours:null, breakFlag:null },
+  { empId:9,  status:"On Leave", timeIn:null,        breakOut:null,       breakIn:null,        timeOut:null,       hours:null, breakFlag:null },
+  { empId:10, status:"Present",  timeIn:"8:58 AM",  breakOut:"12:01 PM", breakIn:"12:59 PM", timeOut:null,       hours:null, breakFlag:null },
+  { empId:11, status:"Remote",   timeIn:"9:15 AM",  breakOut:"12:00 PM", breakIn:"1:10 PM",  timeOut:null,       hours:null, breakFlag:"exceeded" },
+  { empId:12, status:"Absent",   timeIn:null,        breakOut:null,       breakIn:null,        timeOut:null,       hours:null, breakFlag:null },
+];
+
+// Leave requests
+export const LEAVE_REQUESTS_SEED = [
+  { id:1,  empId:9,  type:"Sick Leave",    from:"Mar 1, 2026",  to:"Mar 5, 2026",  days:5, reason:"Medical procedure and recovery",          status:"Approved",  appliedOn:"Feb 25, 2026" },
+  { id:2,  empId:4,  type:"Vacation Leave",from:"Mar 10, 2026", to:"Mar 12, 2026", days:3, reason:"Family trip",                              status:"Pending",   appliedOn:"Feb 28, 2026" },
+  { id:3,  empId:12, type:"Vacation Leave",from:"Mar 15, 2026", to:"Mar 18, 2026", days:4, reason:"Personal travel",                          status:"Pending",   appliedOn:"Mar 1, 2026"  },
+  { id:4,  empId:2,  type:"Emergency Leave",from:"Mar 3, 2026", to:"Mar 3, 2026",  days:1, reason:"Family emergency",                         status:"Approved",  appliedOn:"Mar 3, 2026"  },
+  { id:5,  empId:7,  type:"Sick Leave",    from:"Mar 8, 2026",  to:"Mar 8, 2026",  days:1, reason:"Fever",                                    status:"Approved",  appliedOn:"Mar 7, 2026"  },
+  { id:6,  empId:11, type:"Vacation Leave",from:"Mar 20, 2026", to:"Mar 24, 2026", days:5, reason:"Annual leave utilization",                 status:"Pending",   appliedOn:"Mar 2, 2026"  },
+  { id:7,  empId:3,  type:"Maternity Leave",from:"Apr 1, 2026", to:"Jun 30, 2026", days:90,"reason":"Maternity leave",                        status:"Approved",  appliedOn:"Feb 20, 2026" },
+  { id:8,  empId:5,  type:"Vacation Leave",from:"Mar 25, 2026", to:"Mar 26, 2026", days:2, reason:"Personal day",                             status:"Rejected",  appliedOn:"Feb 27, 2026" },
+  { id:9,  empId:1,  type:"Sick Leave",    from:"Mar 6, 2026",  to:"Mar 6, 2026",  days:1, reason:"Not feeling well",                         status:"Pending",   appliedOn:"Mar 5, 2026"  },
+  { id:10, empId:8,  type:"Vacation Leave",from:"Apr 5, 2026",  to:"Apr 9, 2026",  days:5, reason:"Holiday vacation",                         status:"Pending",   appliedOn:"Mar 1, 2026"  },
+];
+
+// Leave balances per employee
+export const LEAVE_BALANCES = [
+  { empId:1,  annual:{total:15,used:3},  sick:{total:15,used:1},  emergency:{total:5,used:0} },
+  { empId:2,  annual:{total:15,used:8},  sick:{total:15,used:2},  emergency:{total:5,used:1} },
+  { empId:3,  annual:{total:20,used:10}, sick:{total:15,used:0},  emergency:{total:5,used:0} },
+  { empId:4,  annual:{total:15,used:5},  sick:{total:15,used:3},  emergency:{total:5,used:0} },
+  { empId:5,  annual:{total:20,used:18}, sick:{total:15,used:4},  emergency:{total:5,used:2} },
+  { empId:6,  annual:{total:20,used:6},  sick:{total:15,used:1},  emergency:{total:5,used:0} },
+  { empId:7,  annual:{total:20,used:12}, sick:{total:15,used:5},  emergency:{total:5,used:1} },
+  { empId:8,  annual:{total:15,used:4},  sick:{total:15,used:0},  emergency:{total:5,used:0} },
+  { empId:9,  annual:{total:15,used:7},  sick:{total:15,used:5},  emergency:{total:5,used:0} },
+  { empId:10, annual:{total:15,used:2},  sick:{total:15,used:1},  emergency:{total:5,used:0} },
+  { empId:11, annual:{total:15,used:9},  sick:{total:15,used:2},  emergency:{total:5,used:0} },
+  { empId:12, annual:{total:15,used:14}, sick:{total:15,used:3},  emergency:{total:5,used:1} },
+];
+
+// OT/UT records — current month
+export const OT_UT_RECORDS = [
+  { empId:1,  date:"Feb 24", type:"OT", hours:2.5, reason:"Sprint deadline",        status:"Approved" },
+  { empId:4,  date:"Feb 25", type:"OT", hours:3.0, reason:"Server migration",       status:"Approved" },
+  { empId:6,  date:"Feb 26", type:"OT", hours:4.0, reason:"Executive presentation", status:"Approved" },
+  { empId:2,  date:"Feb 27", type:"OT", hours:1.5, reason:"Client call overrun",    status:"Pending"  },
+  { empId:11, date:"Feb 28", type:"OT", hours:2.0, reason:"Bug fix deployment",     status:"Approved" },
+  { empId:4,  date:"Mar 1",  type:"UT", hours:1.0, reason:"Late arrival",           status:"Flagged"  },
+  { empId:12, date:"Mar 1",  type:"UT", hours:8.0, reason:"Unexcused absence",      status:"Flagged"  },
+  { empId:8,  date:"Feb 20", type:"OT", hours:1.5, reason:"Design review",          status:"Approved" },
+  { empId:3,  date:"Feb 22", type:"OT", hours:2.0, reason:"Product launch prep",    status:"Pending"  },
+  { empId:7,  date:"Feb 23", type:"OT", hours:3.5, reason:"Quarterly close",        status:"Approved" },
+  { empId:5,  date:"Feb 19", type:"UT", hours:0.5, reason:"Left early (approved)",  status:"Approved" },
+  { empId:10, date:"Feb 28", type:"OT", hours:1.0, reason:"Audit support",          status:"Pending"  },
+];
+
+export const CURRENT_CUTOFF_END = "Mar 15, 2026";
+
+// Offset bank — where earned hours sit until used/expired/voided
+export const OFFSET_BANK_SEED = [
+  { id:"ob1", empId:1,  source:"OT",     hours:2.5, earnedDate:"Feb 24, 2026", otRef:"OT-001", grantedBy:null,    reason:"Sprint deadline OT — 8AM to 10:30PM",          mode:"flexible",   expiresAt:CURRENT_CUTOFF_END, status:"Available" },
+  { id:"ob2", empId:4,  source:"OT",     hours:3.0, earnedDate:"Feb 25, 2026", otRef:"OT-002", grantedBy:null,    reason:"Server migration — stayed until 8PM",           mode:"flexible",   expiresAt:CURRENT_CUTOFF_END, status:"Available" },
+  { id:"ob3", empId:6,  source:"OT",     hours:4.0, earnedDate:"Feb 26, 2026", otRef:"OT-003", grantedBy:null,    reason:"Executive presentation prep — worked until 9PM", mode:"early-out",  expiresAt:CURRENT_CUTOFF_END, status:"Used"      },
+  { id:"ob4", empId:11, source:"OT",     hours:2.0, earnedDate:"Feb 28, 2026", otRef:"OT-005", grantedBy:null,    reason:"Bug fix deployment — 8AM to 7PM",               mode:"flexible",   expiresAt:CURRENT_CUTOFF_END, status:"Available" },
+  { id:"ob5", empId:7,  source:"OT",     hours:3.5, earnedDate:"Feb 23, 2026", otRef:"OT-007", grantedBy:null,    reason:"Quarterly close — stayed until 8:30PM",         mode:"flexible",   expiresAt:CURRENT_CUTOFF_END, status:"Available" },
+  { id:"ob6", empId:2,  source:"Custom", hours:4.0, earnedDate:"Mar 1, 2026",  otRef:null,     grantedBy:"Admin", reason:"Exceeded Q1 sales quota by 130% — reward offset", mode:"flexible",  expiresAt:CURRENT_CUTOFF_END, status:"Available" },
+  { id:"ob7", empId:8,  source:"Custom", hours:2.0, earnedDate:"Mar 1, 2026",  otRef:null,     grantedBy:"Admin", reason:"Best design award — March recognition",          mode:"early-out",  expiresAt:CURRENT_CUTOFF_END, status:"Available" },
+  { id:"ob8", empId:3,  source:"OT",     hours:2.0, earnedDate:"Feb 22, 2026", otRef:"OT-009", grantedBy:null,    reason:"Product launch prep — stayed until 7PM",         mode:"late-in",    expiresAt:CURRENT_CUTOFF_END, status:"Expired"   },
+];
+
+// Offset requests — employee's intent to use bank hours on a specific day
+export const OFFSET_REQUESTS_SEED = [
+  // empId 6 used ob3 (4hrs) — filed by HR
+  { id:"or1", empId:6,  bankId:"ob3", hoursUsed:4.0, useDate:"Mar 5, 2026",
+    mode:"early-out", timeIn:"8:00 AM", timeOut:"1:00 PM",
+    note:"Compensatory for Feb 26 OT", filedBy:"HR",
+    status:"Approved", reviewedBy:"Admin", reviewedOn:"Mar 2, 2026" },
+  // Pending requests
+  { id:"or2", empId:1,  bankId:"ob1", hoursUsed:2.5, useDate:"Mar 7, 2026",
+    mode:"late-in",   timeIn:"10:30 AM", timeOut:"5:00 PM",
+    note:"Need to attend morning appointment", filedBy:"Employee",
+    status:"Pending", reviewedBy:null, reviewedOn:null },
+  { id:"or3", empId:4,  bankId:"ob2", hoursUsed:3.0, useDate:"Mar 10, 2026",
+    mode:"early-out", timeIn:"8:00 AM", timeOut:"2:00 PM",
+    note:"Family commitment in the afternoon", filedBy:"Employee",
+    status:"Pending", reviewedBy:null, reviewedOn:null },
+  { id:"or4", empId:2,  bankId:"ob6", hoursUsed:4.0, useDate:"Mar 12, 2026",
+    mode:"late-in",   timeIn:"12:00 PM", timeOut:"5:00 PM",
+    note:"Using reward offset for medical check-up", filedBy:"HR",
+    status:"Pending", reviewedBy:null, reviewedOn:null },
+];
+
+export function handleApprove(id) { setLeaveRequests(p => p.map(r => r.id === id ? { ...r, status: "Approved" } : r)); }
+
+export function handleReject(id) { setLeaveRequests(p => p.map(r => r.id === id ? { ...r, status: "Rejected" } : r)); }
+
+export function parseTime(t) {
+  if (!t) return 0;
+  const [time, mer] = t.trim().split(" ");
+  let [h, m] = time.split(":").map(Number);
+  if (mer==="PM" && h!==12) h+=12;
+  if (mer==="AM" && h===12) h=0;
+  return h*60+(m||0);
+}
+
+export function breakFlags(breakOut, breakIn) {
+  if (!breakOut && !breakIn) return [];
+  const flags = [];
+  const outMins = parseTime(breakOut);
+  const inMins  = parseTime(breakIn);
+  const dur     = inMins - outMins;
+  if (outMins < BREAK_WINDOW_START) flags.push("early");       // clocked out before 12PM
+  if (inMins  > BREAK_WINDOW_END)   flags.push("exceeded");    // came back after 1PM
+  if (dur > BREAK_MAX_MINS)         flags.push("exceeded");    // duration > 60 min
+  return [...new Set(flags)];
+}
+
+export function breakMinutes(breakOut, breakIn) {
+  if (!breakOut || !breakIn) return null;
+  return Math.round((parseTime(breakIn) - parseTime(breakOut)));
+}
+
+export function breakDurLabel(breakOut, breakIn) {
+  const mins = breakMinutes(breakOut, breakIn);
+  if (mins === null) return "—";
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  return h > 0 ? `${h}h ${m}m` : `${m}m`;
+}
+
+export const BREAK_WINDOW_START = 12 * 60;      // 720
+export const BREAK_WINDOW_END   = 13 * 60;      // 780
+export const BREAK_MAX_MINS     = 60;
+
+export function empAvailableHours(empId, bank) {
+  return bank.filter(b => b.empId===empId && b.status==="Available")
+             .reduce((s,b) => s+b.hours, 0);
+}
+
+export function hoursWorked(timeIn, timeOut) {
+  const diff = (parseTime(timeOut) - parseTime(timeIn)) / 60;
+  return diff > 0 ? parseFloat(diff.toFixed(1)) : 0;
+}
+export function effectiveHours(timeIn, timeOut, offsetHours) {
+  return hoursWorked(timeIn, timeOut) + offsetHours;
+}
+
 // ── COMPENSATION PACKAGE SETS ─────────────────────────────────────────────────
 
 export const DEFAULT_BASIC_PAY_SETS = [
@@ -615,4 +768,26 @@ export const BADGE = {
   Flagged:     {bg:"#1f0f0f", color:"#f05a5a"},
   "For Review":{bg:"#0a1a2a", color:"#5a9af0"},
   "—":         {bg:"transparent", color:"#444"},
+};
+
+export const ATTENDANCE_STYLE = {
+  Present:  { bg:"#0f1f0f", color:"#5af07a", dot:"#5af07a"  },
+  Remote:   { bg:"#0a1a2a", color:"#5a9af0", dot:"#5a9af0"  },
+  Late:     { bg:"#1f1a0f", color:"#f0c85a", dot:"#f0c85a"  },
+  Absent:   { bg:"#1f0f0f", color:"#f05a5a", dot:"#f05a5a"  },
+  "On Leave":{ bg:"#1a0f1a",color:"#c07af0", dot:"#c07af0"  },
+};
+
+export const LEAVE_STATUS_STYLE = {
+  Approved: { bg:"#0f1f0f", color:"#5af07a" },
+  Pending:  { bg:"#1f1a0f", color:"#f0c85a" },
+  Rejected: { bg:"#1f0f0f", color:"#f05a5a" },
+};
+
+export const LEAVE_TYPES = ["All","Vacation Leave","Sick Leave","Emergency Leave","Maternity Leave","Paternity Leave"];
+
+export const OT_STATUS_STYLE = {
+  Approved: { bg:"#0f1f0f", color:"#5af07a" },
+  Pending:  { bg:"#1f1a0f", color:"#f0c85a" },
+  Flagged:  { bg:"#1f0f0f", color:"#f05a5a" },
 };
