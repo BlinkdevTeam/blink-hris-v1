@@ -103,18 +103,18 @@ export default function TimeAndLeave() {
 
       <div className="flex-1 overflow-y-auto px-8 py-6">
         {activeTab === "overview" && (
-  <OverviewTab
-    attendance={attendance}
-    leaveRequests={leaveRequests}
-    otRecords={otRecords}
-    employees={EMPLOYEES}
-    leaveBalances={LEAVE_BALANCES}
-    attendanceStyle={ATTENDANCE_STYLE}
-    fmt={fmt}
-    onApprove={approveLeave}
-    onReject={rejectLeave}
-  />
-)}
+          <OverviewTab
+            attendance={attendance}
+            leaveRequests={leaveRequests}
+            otRecords={otRecords}
+            employees={EMPLOYEES}
+            leaveBalances={LEAVE_BALANCES}
+            attendanceStyle={ATTENDANCE_STYLE}
+            fmt={fmt}
+            onApprove={approveLeave}
+            onReject={rejectLeave}
+          />
+        )}
         {activeTab==="attendance" && <AttendanceTab attendance={attendance} onCorrect={correctAttendance}/>}
         {activeTab==="leave"      && <LeaveManagementTab leaveRequests={leaveRequests} onApprove={approveLeave} onReject={rejectLeave}/>}
         {activeTab==="balances"   && <LeaveBalancesTab/>}
