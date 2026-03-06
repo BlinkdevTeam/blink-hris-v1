@@ -126,6 +126,7 @@ export default function App() {
           <Route path="/payroll" element={<Payroll {...payrollProps} />} />
           <Route path="/time-leave" element={<TimeAndLeave employees={employees} />} />
           <Route path="/recruitment"     element={<RecruitmentPage />} />
+
           {/* <Route path="/time-leave"      element={<TimeAndLeave employees={employees} />} /> */}
           {/* <Route path="/time-leave"      element={<TimeAndLeaveii />} /> */}
           
