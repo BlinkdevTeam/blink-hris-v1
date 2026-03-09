@@ -1,7 +1,7 @@
 import {
   ROLE_COLORS, ROLE_LABELS, ROLE_ACCESS
 } from "../../../data/compData";
-import Btn from "./Btn";
+import SignInBtn from "../../ui/SignInBtn";
 
 export default function LoggedInView({ user, onLogout }) {
   const color = ROLE_COLORS[user?.role] || "#888";
@@ -53,7 +53,7 @@ export default function LoggedInView({ user, onLogout }) {
         )) || <p className="text-sm text-gray-500">No access info available</p>}
       </div>
 
-      <Btn onClick={onLogout} variant="secondary">Sign Out</Btn>
+      <SignInBtn onClick={onLogout} variant="secondary">Sign Out</SignInBtn>
     </div>
   );
 }

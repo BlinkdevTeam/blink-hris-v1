@@ -12,16 +12,21 @@ const NAV_ITEMS = [
 ];
 
 // ── TopNav ────────────────────────────────────────────────────────────────────
-// Defined here so it lives in one place and renders above every route.
-// useLocation auto-highlights the active nav item — no activeNav state needed.
 export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // /people/5/compensation still highlights "People"
+  // Highlight active nav item
   const activeLabel = NAV_ITEMS.find(item =>
     location.pathname.startsWith(item.path)
   )?.label;
+
+  // ── Temporary Logout Handler
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("user");
+    navigate("/login", { replace: true });
+  };
 
   return (
     <header
@@ -70,9 +75,20 @@ export default function Header() {
             3
           </span>
         </button>
+
+        {/* User avatar */}
         <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center font-bold text-sm">
           AK
         </div>
+
+        {/* ── Temporary Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="text-xs text-gray-500 hover:text-red-500 transition-colors px-2 py-1 border rounded"
+          style={{ fontFamily: "system-ui, sans-serif" }}
+        >
+          Logout
+        </button>
       </div>
     </header>
   );
