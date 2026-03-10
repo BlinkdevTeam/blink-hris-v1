@@ -18,6 +18,7 @@ import Header from "./Header/Header";
 
 // HRIS Pages
 import Dashboard from "./components/dashboard/Dashboard";
+// import People from "./templates/PeopleTemplate";
 import People from "./components/people/People";
 import EmployeeProfile from "./components/people/EmployeeProfile";
 import Payroll from "./components/payroll/Payroll";

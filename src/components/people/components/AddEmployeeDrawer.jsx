@@ -1,46 +1,144 @@
+"use client";
 import { useState } from "react";
-import {
-  IC, IS, Field 
-} from "../../../data/compData";
+import { createEmployee } from "../../../services/employeeService";
+import { IC, IS, Field } from "../../../data/compData";
 
 // ── ADD EMPLOYEE DRAWER ───────────────────────────────────────────────────────
 export default function AddEmployeeDrawer({ onClose, onSave }) {
   const [form, setForm] = useState({
-    name:"", email:"", phone:"", role:"", dept:"Engineering", location:"New York",
-    status:"Active", joined:"", salary:"", payFreq:"Bi-weekly", empType:"Full-time",
-    manager:"", schedule:"Mon–Fri, 9am–5pm", benefits:"Standard", gender:"", dob:"",
+    name: "",
+    email: "",
+    phone: "",
+    role: "",
+    dept: "",
+    location: "New York",
+    status: "Active",
+    joined: "",
+    salary: "",
+    payFreq: "Bi-weekly",
+    empType: "Full-time",
+    manager: "",
+    schedule: "Mon–Fri, 9am–5pm",
+    benefits: "Standard",
+    gender: "",
+    dob: "",
+    personal_email: "",
   });
-  function set(k, v) { setForm(f => ({ ...f, [k]: v })); }
+
+  function set(k, v) {
+    setForm((f) => ({ ...f, [k]: v }));
+  }
 
   function handleSave() {
-    const today = new Date().toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
-    onSave({
-      ...form,
-      id: Date.now(),
-      avatar: form.name.trim().split(" ").map(w=>w[0]||"").join("").slice(0,2).toUpperCase() || "??",
-      salary: form.salary,
-      joined: form.joined || today,
-      tax: 20,
-      empType: form.empType,
-      deductOverrides: {sss:true,philhealth:true,pagibig:true},
-      taxExempt: false,
-    });
-    onClose();
+    const names = form.name.trim().split(" ");
+    const first_name = names[0] || "";
+    const last_name = names.slice(1).join(" ") || "";
+
+    const hire_date = form.joined
+      ? new Date(form.joined).toISOString().split("T")[0]
+      : new Date().toISOString().split("T")[0];
+
+    // Map department/manager names to UUIDs
+    const departmentMap = {
+      Engineering: "UUID-OF-ENGINEERING",
+      Sales: "UUID-OF-SALES",
+      "HR & Admin": "UUID-OF-HR",
+      Product: "UUID-OF-PRODUCT",
+      Design: "UUID-OF-DESIGN",
+      Operations: "UUID-OF-OPERATIONS",
+      Marketing: "UUID-OF-MARKETING",
+    };
+
+    const managerMap = {
+      "Sara Okafor": "UUID-OF-SARA",
+      "Noah Kim": "UUID-OF-NOAH",
+      "Devon Park": "UUID-OF-DEVON",
+      CEO: "UUID-OF-CEO",
+      "Rita Vance": "UUID-OF-RITA",
+      "Leila Farouk": "UUID-OF-LEILA",
+    };
+
+    const payload = {
+      employee_code: `EMP${Date.now()}`,
+      first_name,
+      last_name,
+      middle_name: "",
+      email: form.email,
+      personal_email: form.personal_email || null,
+      phone: form.phone || null,
+      avatar_initials:
+        form.name
+          .split(" ")
+          .map((w) => w[0] || "")
+          .join("")
+          .slice(0, 2)
+          .toUpperCase() || "??",
+      department_id: form.dept ? departmentMap[form.dept] || null : null,
+      role_title: form.role,
+      employment_type: form.empType,
+      status: form.status.toLowerCase(),
+      hire_date,
+      end_date: null,
+      manager_id: form.manager ? managerMap[form.manager] || null : null,
+      gender: form.gender || null,
+      dob: form.dob ? new Date(form.dob).toISOString().split("T")[0] : null,
+      location: form.location || null,
+      schedule: form.schedule || null,
+      salary: form.salary || null,
+      pay_frequency: form.payFreq || null,
+      benefits: form.benefits || null,
+    };
+
+    createEmployee(payload)
+      .then((res) => {
+        console.log("Employee created:", res.data);
+        onClose();
+        if (onSave) onSave(res.data);
+      })
+      .catch((err) => {
+        console.error("Error creating employee:", err);
+        alert("Failed to create employee. Check console for details.");
+      });
   }
 
   return (
     <>
-      <div className="fixed inset-0 z-20" style={{ backgroundColor: "rgba(0,0,0,0.6)" }} onClick={onClose} />
-      <div className="fixed top-0 right-0 h-full z-30 flex flex-col"
-        style={{ width: 480, backgroundColor: "#080808", borderLeft: "1px solid #222", boxShadow: "-8px 0 40px rgba(0,0,0,0.8)" }}>
-
+      <div
+        className="fixed inset-0 z-20"
+        style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+        onClick={onClose}
+      />
+      <div
+        className="fixed top-0 right-0 h-full z-30 flex flex-col"
+        style={{
+          width: 480,
+          backgroundColor: "#080808",
+          borderLeft: "1px solid #222",
+          boxShadow: "-8px 0 40px rgba(0,0,0,0.8)",
+        }}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between px-7 py-5 flex-shrink-0" style={{ borderBottom: "1px solid #1a1a1a" }}>
+        <div
+          className="flex items-center justify-between px-7 py-5 flex-shrink-0"
+          style={{ borderBottom: "1px solid #1a1a1a" }}
+        >
           <div>
-            <h2 className="text-base font-normal text-white">Add New Employee</h2>
-            <p className="text-gray-500 text-sm mt-0.5" style={{ fontFamily: "system-ui, sans-serif" }}>Fill in the details below</p>
+            <h2 className="text-base font-normal text-white">
+              Add New Employee
+            </h2>
+            <p
+              className="text-gray-500 text-sm mt-0.5"
+              style={{ fontFamily: "system-ui, sans-serif" }}
+            >
+              Fill in the details below
+            </p>
           </div>
-          <button onClick={onClose} className="text-gray-600 hover:text-white transition-colors text-xl">✕</button>
+          <button
+            onClick={onClose}
+            className="text-gray-600 hover:text-white transition-colors text-xl"
+          >
+            ✕
+          </button>
         </div>
 
         {/* Form */}
@@ -64,11 +162,19 @@ export default function AddEmployeeDrawer({ onClose, onSave }) {
           <p className="text-xs uppercase tracking-widest text-gray-600 pt-2 pb-1" style={{ fontFamily: "system-ui, sans-serif", borderBottom: "1px solid #1a1a1a" }}>Job Details</p>
           <Field label="Job Title"><input className={IC} style={IS} placeholder="Senior Engineer" value={form.role} onChange={e => set("role", e.target.value)} /></Field>
           <div className="grid grid-cols-2 gap-4">
-            <Field label="Department">
-              <select className={IC} style={IS} value={form.dept} onChange={e => set("dept", e.target.value)}>
-                {["Engineering","Sales","Product","Design","Operations","Marketing","HR & Admin"].map(d => <option key={d}>{d}</option>)}
-              </select>
-            </Field>
+           <Field label="Department">
+  <select
+    className={IC}
+    style={IS}
+    value={form.dept}
+    onChange={e => set("dept", e.target.value)}
+  >
+    <option value="">Select…</option> {/* default blank option */}
+    {["Engineering","Sales","Product","Design","Operations","Marketing","HR & Admin"].map(d => (
+      <option key={d} value={d}>{d}</option>
+    ))}
+  </select>
+</Field>
             <Field label="Status">
               <select className={IC} style={IS} value={form.status} onChange={e => set("status", e.target.value)}>
                 <option>Active</option><option>On Leave</option><option>Inactive</option>
@@ -81,11 +187,19 @@ export default function AddEmployeeDrawer({ onClose, onSave }) {
                 {["New York","Chicago","Austin","Remote"].map(l => <option key={l}>{l}</option>)}
               </select>
             </Field>
-            <Field label="Manager">
-              <select className={IC} style={IS} value={form.manager} onChange={e => set("manager", e.target.value)}>
-                {["","CEO","Devon Park","Sara Okafor","Rita Vance","Leila Farouk","Noah Kim"].map(m => <option key={m} value={m}>{m||"Select…"}</option>)}
-              </select>
-            </Field>
+           <Field label="Manager">
+  <select
+    className={IC}
+    style={IS}
+    value={form.manager}
+    onChange={e => set("manager", e.target.value)}
+  >
+    <option value="">Select…</option> {/* default blank option */}
+    {["CEO","Devon Park","Sara Okafor","Rita Vance","Leila Farouk","Noah Kim"].map(m => (
+      <option key={m} value={m}>{m}</option>
+    ))}
+  </select>
+</Field>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <Field label="Start Date"><input className={IC} style={IS} placeholder="Mar 1, 2026" value={form.joined} onChange={e => set("joined", e.target.value)} /></Field>
@@ -98,26 +212,6 @@ export default function AddEmployeeDrawer({ onClose, onSave }) {
           <Field label="Employment Type">
             <select className={IC} style={IS} value={form.empType} onChange={e => set("empType", e.target.value)}>
               <option>Full-time</option><option>Part-time</option><option>Contractor</option><option>Intern</option>
-            </select>
-          </Field>
-
-          <p className="text-xs uppercase tracking-widest text-gray-600 pt-2 pb-1" style={{ fontFamily: "system-ui, sans-serif", borderBottom: "1px solid #1a1a1a" }}>Compensation</p>
-          <div className="grid grid-cols-2 gap-4">
-            <Field label="Annual Salary">
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">$</span>
-                <input className={IC} style={{ ...IS, paddingLeft: "1.75rem" }} placeholder="0" value={form.salary} onChange={e => set("salary", e.target.value)} />
-              </div>
-            </Field>
-            <Field label="Pay Frequency">
-              <select className={IC} style={IS} value={form.payFreq} onChange={e => set("payFreq", e.target.value)}>
-                <option>Weekly</option><option>Bi-weekly</option><option>Semi-monthly</option><option>Monthly</option>
-              </select>
-            </Field>
-          </div>
-          <Field label="Benefits Package">
-            <select className={IC} style={IS} value={form.benefits} onChange={e => set("benefits", e.target.value)}>
-              <option>Standard</option><option>Premium</option><option>Contractor (None)</option>
             </select>
           </Field>
         </div>
