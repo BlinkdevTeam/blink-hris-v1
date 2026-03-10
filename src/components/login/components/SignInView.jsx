@@ -26,9 +26,12 @@ export default function SignInView({ onLogin, onForgotPassword }) {
     try {
       setLoading(true);
 
-      // ✅ Use Axios service instead of fetch
       const response = await loginUser(email, password);
       const user = response.data.user;
+
+      // Combine first_name + last_name if name is missing
+      const fullName =
+        user.name || `${user.first_name || ""} ${user.last_name || ""}`.trim();
 
       // Save auth state in localStorage
       localStorage.setItem("isAuthenticated", "true");
@@ -36,9 +39,11 @@ export default function SignInView({ onLogin, onForgotPassword }) {
         "user",
         JSON.stringify({
           id: user.id,
+          name: fullName,
           email: user.email,
           role: user.role,
-          name: user.name,
+          dept: user.dept || "N/A",
+          unreadNotifications: user.unreadNotifications || 0,
         }),
       );
 

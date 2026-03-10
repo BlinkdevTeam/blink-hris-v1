@@ -1067,3 +1067,5 @@ export const ROLE_COLORS = {
   manager:     "#5a9af0",
   employee:    "#f0c85a",
 };
+
+export function avatarBg(id) { return AV_COLORS[id % AV_COLORS.length]; }

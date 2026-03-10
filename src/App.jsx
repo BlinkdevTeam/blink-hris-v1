@@ -14,7 +14,7 @@ import {
   BADGE,
 } from "./data/compData";
 
-import Header from "./Header";
+import Header from "./Header/Header";
 
 // HRIS Pages
 import Dashboard from "./components/dashboard/Dashboard";
