@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import { createEmployee } from "../../../services/employeeService";
-import { IC, IS, Field } from "../../../data/compData";
+import { TextInput, Select, DatePicker } from "../../../components/form";
+import { IC, IS } from "../../../data/compData";
 
 // ── ADD EMPLOYEE DRAWER ───────────────────────────────────────────────────────
 export default function AddEmployeeDrawer({ onClose, onSave }) {
@@ -143,88 +144,202 @@ export default function AddEmployeeDrawer({ onClose, onSave }) {
 
         {/* Form */}
         <div className="flex-1 overflow-y-auto px-7 py-6 space-y-5">
-          <p className="text-xs uppercase tracking-widest text-gray-600 pb-1" style={{ fontFamily: "system-ui, sans-serif", borderBottom: "1px solid #1a1a1a" }}>Basic Info</p>
+          <p
+            className="text-xs uppercase tracking-widest text-gray-600 pb-1"
+            style={{
+              fontFamily: "system-ui, sans-serif",
+              borderBottom: "1px solid #1a1a1a",
+            }}
+          >
+            Basic Info
+          </p>
           <div className="grid grid-cols-2 gap-4">
-            <Field label="First Name"><input className={IC} style={IS} placeholder="Sara" value={form.name.split(" ")[0]} onChange={e => set("name", e.target.value + " " + form.name.split(" ").slice(1).join(" "))} /></Field>
-            <Field label="Last Name"><input className={IC} style={IS} placeholder="Okafor" value={form.name.split(" ").slice(1).join(" ")} onChange={e => set("name", (form.name.split(" ")[0]||"") + " " + e.target.value)} /></Field>
+            <TextInput
+              label="First Name"
+              placeholder="Sara"
+              className={IC}
+              style={IS}
+              value={form.name.split(" ")[0]}
+              onChange={(e) =>
+                set(
+                  "name",
+                  e.target.value +
+                    " " +
+                    form.name.split(" ").slice(1).join(" "),
+                )
+              }
+            />
+            <TextInput
+              label="Last Name"
+              placeholder="Okafor"
+              className={IC}
+              style={IS}
+              value={form.name.split(" ").slice(1).join(" ")}
+              onChange={(e) =>
+                set(
+                  "name",
+                  (form.name.split(" ")[0] || "") + " " + e.target.value,
+                )
+              }
+            />
           </div>
-          <Field label="Work Email"><input className={IC} style={IS} placeholder="name@company.com" value={form.email} onChange={e => set("email", e.target.value)} /></Field>
-          <Field label="Phone"><input className={IC} style={IS} placeholder="+1 212 555 0000" value={form.phone} onChange={e => set("phone", e.target.value)} /></Field>
+          <TextInput
+            label="Work Email"
+            placeholder="name@company.com"
+            className={IC}
+            style={IS}
+            value={form.email}
+            onChange={(e) => set("email", e.target.value)}
+          />
+          <TextInput
+            label="Phone"
+            placeholder="+1 212 555 0000"
+            className={IC}
+            style={IS}
+            value={form.phone}
+            onChange={(e) => set("phone", e.target.value)}
+          />
           <div className="grid grid-cols-2 gap-4">
-            <Field label="Date of Birth"><input className={IC} style={IS} placeholder="Jan 1, 1990" value={form.dob} onChange={e => set("dob", e.target.value)} /></Field>
-            <Field label="Gender">
-              <select className={IC} style={IS} value={form.gender} onChange={e => set("gender", e.target.value)}>
-                <option value="">Select…</option><option>Male</option><option>Female</option><option>Non-binary</option><option>Prefer not to say</option>
-              </select>
-            </Field>
+            <TextInput
+              label="Date of Birth"
+              placeholder="Jan 1, 1990"
+              className={IC}
+              style={IS}
+              value={form.dob}
+              onChange={(e) => set("dob", e.target.value)}
+            />
+            <Select
+              label="Gender"
+              value={form.gender}
+              onChange={(e) => set("gender", e.target.value)}
+              options={["Male", "Female", "Non-binary", "Prefer not to say"]}
+              className={IC}
+              style={IS}
+            />
           </div>
 
-          <p className="text-xs uppercase tracking-widest text-gray-600 pt-2 pb-1" style={{ fontFamily: "system-ui, sans-serif", borderBottom: "1px solid #1a1a1a" }}>Job Details</p>
-          <Field label="Job Title"><input className={IC} style={IS} placeholder="Senior Engineer" value={form.role} onChange={e => set("role", e.target.value)} /></Field>
+          <p
+            className="text-xs uppercase tracking-widest text-gray-600 pt-2 pb-1"
+            style={{
+              fontFamily: "system-ui, sans-serif",
+              borderBottom: "1px solid #1a1a1a",
+            }}
+          >
+            Job Details
+          </p>
+          <TextInput
+            label="Job Title"
+            placeholder="Senior Engineer"
+            className={IC}
+            style={IS}
+            value={form.role}
+            onChange={(e) => set("role", e.target.value)}
+          />
           <div className="grid grid-cols-2 gap-4">
-           <Field label="Department">
-  <select
-    className={IC}
-    style={IS}
-    value={form.dept}
-    onChange={e => set("dept", e.target.value)}
-  >
-    <option value="">Select…</option> {/* default blank option */}
-    {["Engineering","Sales","Product","Design","Operations","Marketing","HR & Admin"].map(d => (
-      <option key={d} value={d}>{d}</option>
-    ))}
-  </select>
-</Field>
-            <Field label="Status">
-              <select className={IC} style={IS} value={form.status} onChange={e => set("status", e.target.value)}>
-                <option>Active</option><option>On Leave</option><option>Inactive</option>
-              </select>
-            </Field>
+            <Select
+              label="Department"
+              value={form.dept}
+              onChange={(e) => set("dept", e.target.value)}
+              options={[
+                "Engineering",
+                "Sales",
+                "Product",
+                "Design",
+                "Operations",
+                "Marketing",
+                "HR & Admin",
+              ]}
+              className={IC}
+              style={IS}
+            />
+            <Select
+              label="Status"
+              value={form.status}
+              onChange={(e) => set("status", e.target.value)}
+              options={["Active", "On Leave", "Inactive"]}
+              className={IC}
+              style={IS}
+            />
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Field label="Location">
-              <select className={IC} style={IS} value={form.location} onChange={e => set("location", e.target.value)}>
-                {["New York","Chicago","Austin","Remote"].map(l => <option key={l}>{l}</option>)}
-              </select>
-            </Field>
-           <Field label="Manager">
-  <select
-    className={IC}
-    style={IS}
-    value={form.manager}
-    onChange={e => set("manager", e.target.value)}
-  >
-    <option value="">Select…</option> {/* default blank option */}
-    {["CEO","Devon Park","Sara Okafor","Rita Vance","Leila Farouk","Noah Kim"].map(m => (
-      <option key={m} value={m}>{m}</option>
-    ))}
-  </select>
-</Field>
+            <Select
+              label="Location"
+              value={form.location}
+              onChange={(e) => set("location", e.target.value)}
+              options={["New York", "Chicago", "Austin", "Remote"]}
+              className={IC}
+              style={IS}
+            />
+            <Select
+              label="Manager"
+              value={form.manager}
+              onChange={(e) => set("manager", e.target.value)}
+              options={[
+                "CEO",
+                "Devon Park",
+                "Sara Okafor",
+                "Rita Vance",
+                "Leila Farouk",
+                "Noah Kim",
+              ]}
+              className={IC}
+              style={IS}
+            />
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Field label="Start Date"><input className={IC} style={IS} placeholder="Mar 1, 2026" value={form.joined} onChange={e => set("joined", e.target.value)} /></Field>
-            <Field label="Work Schedule">
-              <select className={IC} style={IS} value={form.schedule} onChange={e => set("schedule", e.target.value)}>
-                {["Mon–Fri, 9am–5pm","Mon–Fri, Flexible","4-day week","Remote / Async"].map(s => <option key={s}>{s}</option>)}
-              </select>
-            </Field>
+            <DatePicker
+              label="Start Date"
+              value={form.joined}
+              onChange={(e) => set("joined", e.target.value)}
+              className={IC}
+              style={IS}
+            />
+            <Select
+              label="Work Schedule"
+              value={form.schedule}
+              onChange={(e) => set("schedule", e.target.value)}
+              options={[
+                "Mon–Fri, 9am–5pm",
+                "Mon–Fri, Flexible",
+                "4-day week",
+                "Remote / Async",
+              ]}
+              className={IC}
+              style={IS}
+            />
           </div>
-          <Field label="Employment Type">
-            <select className={IC} style={IS} value={form.empType} onChange={e => set("empType", e.target.value)}>
-              <option>Full-time</option><option>Part-time</option><option>Contractor</option><option>Intern</option>
-            </select>
-          </Field>
+          <Select
+            label="Employment Type"
+            value={form.empType}
+            onChange={(e) => set("empType", e.target.value)}
+            options={["Full-time", "Part-time", "Contractor", "Intern"]}
+            className={IC}
+            style={IS}
+          />
         </div>
 
         {/* Footer */}
-        <div className="px-7 py-5 flex items-center justify-between flex-shrink-0" style={{ borderTop: "1px solid #1a1a1a" }}>
-          <button onClick={onClose} className="px-5 py-2.5 rounded text-sm hover:opacity-80"
-            style={{ fontFamily: "system-ui, sans-serif", backgroundColor: "#111", color: "#aaa", border: "1px solid #2a2a2a" }}>
+        <div
+          className="px-7 py-5 flex items-center justify-between flex-shrink-0"
+          style={{ borderTop: "1px solid #1a1a1a" }}
+        >
+          <button
+            onClick={onClose}
+            className="px-5 py-2.5 rounded text-sm hover:opacity-80"
+            style={{
+              fontFamily: "system-ui, sans-serif",
+              backgroundColor: "#111",
+              color: "#aaa",
+              border: "1px solid #2a2a2a",
+            }}
+          >
             Cancel
           </button>
-          <button onClick={handleSave}
+          <button
+            onClick={handleSave}
             className="px-5 py-2.5 rounded text-sm font-medium bg-white text-black hover:opacity-80"
-            style={{ fontFamily: "system-ui, sans-serif" }}>
+            style={{ fontFamily: "system-ui, sans-serif" }}
+          >
             Add Employee ✓
           </button>
         </div>

@@ -1,7 +1,14 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
-// import { Provider } from "react-redux";
-// import { store } from "./store/store";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
+import PageLoader from "./components/ui/PageLoader";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AppLayout from "./layouts/AppLayout";
 
 import {
   EMPLOYEES,
@@ -18,7 +25,6 @@ import Header from "./Header/Header";
 
 // HRIS Pages
 import Dashboard from "./components/dashboard/Dashboard";
-// import People from "./templates/PeopleTemplate";
 import People from "./components/people/People";
 import EmployeeProfile from "./components/people/EmployeeProfile";
 import Payroll from "./components/payroll/Payroll";
@@ -33,39 +39,32 @@ import UserManagement from "./templates/UserManagement";
 // ─────────────────────────────────────────
 // Layout (Used ONLY for the HRIS system)
 // ─────────────────────────────────────────
-function AppLayout({ children }) {
-  return (
-    <div
-      className="min-h-screen text-white flex flex-col"
-      style={{ fontFamily: "'Georgia', serif", backgroundColor: "#000" }}
-    >
-      <Header />
-      <main className="flex-1 flex flex-col overflow-hidden">{children}</main>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────
-// Route Guards
-// ─────────────────────────────────────────
-function ProtectedRoute({ children }) {
-  const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return children;
-}
+// function AppLayout({ children }) {
+//   return (
+//     <div
+//       className="min-h-screen text-white flex flex-col"
+//       style={{ fontFamily: "'Georgia', serif", backgroundColor: "#000" }}
+//     >
+//       <Header />
+//       <main className="flex-1 flex flex-col overflow-hidden">{children}</main>
+//     </div>
+//   );
+// }
 
 function SetupRoute({ children }) {
   const setupComplete = localStorage.getItem("setupComplete") === "true";
-
-  if (!setupComplete) {
-    return <Navigate to="/initial-setup" replace />;
-  }
-
+  if (!setupComplete) return <Navigate to="/initial-setup" replace />;
   return children;
+}
+
+function ProtectedLayout({ children }) {
+  return (
+    <SetupRoute>
+      <ProtectedRoute>
+        <AppLayout>{children}</AppLayout>
+      </ProtectedRoute>
+    </SetupRoute>
+  );
 }
 
 // ─────────────────────────────────────────
@@ -73,7 +72,6 @@ function SetupRoute({ children }) {
 // ─────────────────────────────────────────
 function InitialSetupWrapper() {
   const navigate = useNavigate();
-
   return (
     <InitialSetup
       onFinishSetup={() => {
@@ -86,16 +84,22 @@ function InitialSetupWrapper() {
 
 function LoginWrapper({ onLogin }) {
   const navigate = useNavigate();
+  const [showLoader, setShowLoader] = useState(false);
 
   return (
     <Login
       onLogin={(user) => {
-        localStorage.setItem("isAuthenticated", "true");
-        localStorage.setItem("user", JSON.stringify(user));
-        navigate("/dashboard", { replace: true });
+        setShowLoader(true); // show loader after login
+        setTimeout(() => {
+          localStorage.setItem("isAuthenticated", "true");
+          localStorage.setItem("user", JSON.stringify(user));
+          navigate("/dashboard", { replace: true });
+        }, 1000); // short delay for UX
         if (onLogin) onLogin(user);
       }}
-    />
+    >
+      {showLoader && <PageLoader message="Loading dashboard..." />}
+    </Login>
   );
 }
 
@@ -178,7 +182,6 @@ export default function App() {
   };
 
   return (
-    // <Provider store={store}>
     <BrowserRouter>
       <Routes>
         {/* ROOT REDIRECT */}
@@ -196,69 +199,39 @@ export default function App() {
         />
 
         {/* INITIAL SETUP */}
-        <Route
-          path="/initial-setup"
-          element={
-            localStorage.getItem("setupComplete") === "true" ? (
-              <Navigate to="/login" replace />
-            ) : (
-              <InitialSetupWrapper />
-            )
-          }
-        />
+        <Route path="/initial-setup" element={<InitialSetupWrapper />} />
 
         {/* LOGIN */}
-        <Route
-          path="/login"
-          element={
-            localStorage.getItem("isAuthenticated") === "true" ? (
-              <Navigate to="/dashboard" replace />
-            ) : (
-              <LoginWrapper />
-            )
-          }
-        />
+        <Route path="/login" element={<LoginWrapper />} />
 
         {/* DASHBOARD */}
         <Route
-          path="/dashboard"
-          element={
-            <SetupRoute>
-              <ProtectedRoute>
-                <AppLayout>
-                  <Dashboard />
-                </AppLayout>
-              </ProtectedRoute>
-            </SetupRoute>
-          }
-        />
+  path="/dashboard"
+  element={
+    <ProtectedLayout>
+      <Dashboard />
+    </ProtectedLayout>
+  }
+/>
 
         {/* PEOPLE */}
         <Route
-          path="/people"
-          element={
-            <SetupRoute>
-              <ProtectedRoute>
-                <AppLayout>
-                  <People {...employeeProps} {...compPackageProps} />
-                </AppLayout>
-              </ProtectedRoute>
-            </SetupRoute>
-          }
-        />
+  path="/people"
+  element={
+    <ProtectedLayout>
+      <People {...employeeProps} {...compPackageProps} />
+    </ProtectedLayout>
+  }
+/>
 
-        <Route
-          path="/people/:id"
-          element={
-            <SetupRoute>
-              <ProtectedRoute>
-                <AppLayout>
-                  <EmployeeProfile {...employeeProps} {...compPackageProps} />
-                </AppLayout>
-              </ProtectedRoute>
-            </SetupRoute>
-          }
-        />
+       <Route
+  path="/people/:id"
+  element={
+    <ProtectedLayout>
+      <EmployeeProfile {...employeeProps} {...compPackageProps} />
+    </ProtectedLayout>
+  }
+/>
 
         <Route
           path="/people/:id/:tab"
@@ -274,65 +247,48 @@ export default function App() {
         />
 
         {/* PAYROLL */}
-        <Route
-          path="/payroll"
-          element={
-            <SetupRoute>
-              <ProtectedRoute>
-                <AppLayout>
-                  <Payroll {...payrollProps} />
-                </AppLayout>
-              </ProtectedRoute>
-            </SetupRoute>
-          }
-        />
+       <Route
+  path="/payroll"
+  element={
+    <ProtectedLayout>
+      <Payroll {...payrollProps} />
+    </ProtectedLayout>
+  }
+/>
 
         {/* TIME & LEAVE */}
         <Route
-          path="/time-leave"
-          element={
-            <SetupRoute>
-              <ProtectedRoute>
-                <AppLayout>
-                  <TimeAndLeave employees={employees} />
-                </AppLayout>
-              </ProtectedRoute>
-            </SetupRoute>
-          }
-        />
+  path="/time-leave"
+  element={
+    <ProtectedLayout>
+      <TimeAndLeave employees={employees} />
+    </ProtectedLayout>
+  }
+/>
 
         {/* RECRUITMENT */}
         <Route
-          path="/recruitment"
-          element={
-            <SetupRoute>
-              <ProtectedRoute>
-                <AppLayout>
-                  <RecruitmentPage />
-                </AppLayout>
-              </ProtectedRoute>
-            </SetupRoute>
-          }
-        />
+  path="/recruitment"
+  element={
+    <ProtectedLayout>
+      <RecruitmentPage />
+    </ProtectedLayout>
+  }
+/>
 
         {/* USERS */}
         <Route
-          path="/users"
-          element={
-            <SetupRoute>
-              <ProtectedRoute>
-                <AppLayout>
-                  <UserManagement />
-                </AppLayout>
-              </ProtectedRoute>
-            </SetupRoute>
-          }
-        />
+  path="/users"
+  element={
+    <ProtectedLayout>
+      <UserManagement />
+    </ProtectedLayout>
+  }
+/>
 
         {/* CATCH ALL */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
-    // </Provider>
   );
 }
